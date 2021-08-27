@@ -1,0 +1,39 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace FastFood
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            int foodQuantity = int.Parse(Console.ReadLine());
+            var orders = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var orderQue = new Queue<int>(orders);
+
+            Console.WriteLine(orderQue.Max());
+
+            while (true)
+            {
+                var order = orderQue.Peek();
+                if (order <= foodQuantity)
+                {
+                    orderQue.Dequeue();
+                    foodQuantity -= order;
+                }
+                if (orderQue.Count == 0)
+                {
+                    Console.WriteLine("Orders complete");
+                    break;
+                    
+                }
+                if (orderQue.Count > 0 && order > foodQuantity)
+                {
+                    Console.Write("Orders left: " + string.Join(" ", orderQue));
+                    break;                    
+                }
+            }
+        }
+    }
+}
