@@ -1,0 +1,43 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace FashionBoutique
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            var digits = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var raxCapacity = int.Parse(Console.ReadLine());
+            var stack = new Stack<int>(digits);
+            int sum = 0;
+            int raxCount = 1;
+            var capacity = raxCapacity;
+
+            while (stack.Any())
+            {
+                var element = stack.Peek();
+                
+                if (sum + element < capacity)
+                {
+                    sum += element;
+                    stack.Pop();
+                }
+                else if (sum + element == raxCapacity)
+                {
+                    sum = 0;
+                    stack.Pop();
+                    raxCount++;
+                    capacity = raxCapacity;
+                }
+                else if (sum + element > capacity)
+                {
+                    raxCount++;
+                    sum = 0;
+                }
+            }
+            Console.WriteLine(raxCount);
+        }
+    }
+}
