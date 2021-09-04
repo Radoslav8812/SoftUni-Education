@@ -1,0 +1,47 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SimpleTextEditor
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            var stack = new Stack<string>();
+            string currString = string.Empty;
+            stack.Push(currString);
+
+            for (int i = 0; i < n; i++)
+            {
+                var splitedInput = Console.ReadLine().Split().ToArray();
+                var command = int.Parse(splitedInput[0]);
+                
+                if (command == 1)
+                {
+                    var text = splitedInput[1];
+                    currString += text;
+                    stack.Push(currString);
+                }
+                else if (command == 2)
+                {
+                    int num = int.Parse(splitedInput[1]);
+                    currString = currString.Substring(0, currString.Length - num);
+                    stack.Push(currString);
+                }
+                else if (command == 3)
+                {
+                    int index = int.Parse(splitedInput[1]);
+                    Console.WriteLine(currString[index - 1]);
+                }
+                else if (command == 4)
+                {
+                    stack.Pop();
+                    currString = stack.Peek();
+                }
+            }
+        }
+    }
+}
