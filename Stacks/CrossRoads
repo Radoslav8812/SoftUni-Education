@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace CrossRoads
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            int duration = int.Parse(Console.ReadLine());
+            int freeWindDuration = int.Parse(Console.ReadLine());
+            var passedCarStack = new Stack<string>();
+            var carToPassQue = new Queue<string>();
+
+            string command = string.Empty;
+
+            while ((command = Console.ReadLine()) != "END")
+            {
+                if (command != "green")
+                {
+                    carToPassQue.Enqueue(command);
+                }
+                else
+                {
+                    int greenLight = duration;
+                    int freePass = freeWindDuration;
+                    int count = carToPassQue.Count;
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (greenLight >= carToPassQue.Peek().Length && carToPassQue.Any())
+                        {
+                            greenLight -= carToPassQue.Peek().Length;
+                            passedCarStack.Push(carToPassQue.Dequeue());
+                        }
+                        else if (greenLight < carToPassQue.Peek().Length && carToPassQue.Any())
+                        {
+                            int remainingTime = greenLight + freePass;
+
+                            if (greenLight <= 0)
+                            {
+                                continue;
+                            }
+                            else if (remainingTime > 0 && remainingTime >= carToPassQue.Peek().Length)
+                            {
+                                var car = carToPassQue.Peek();
+                                passedCarStack.Push(carToPassQue.Dequeue());
+                                greenLight = 0;
+                                freePass = 0;
+                            }
+                            else if (remainingTime > 0 && remainingTime < carToPassQue.Peek().Length)
+                            {
+                                var car = carToPassQue.Peek();
+                                Console.WriteLine("A crash happened!");
+                                var hit = remainingTime;
+                                Console.WriteLine($"{car} was hit at {car[hit]}.");
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("Everyone is safe.");
+            Console.WriteLine($"{passedCarStack.Count} total cars passed the crossroads.");
+        }
+    }
+}
