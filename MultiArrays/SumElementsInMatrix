@@ -1,0 +1,39 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace MultiArrays
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            var splitedInput = Console.ReadLine().Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            int rows = splitedInput[0];
+            int cols = splitedInput[1];
+            var matrix = new int[rows, cols];
+
+            Console.WriteLine(rows);
+            Console.WriteLine(cols); ;
+
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                var commArgs = Console.ReadLine().Split(new [] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                {
+                    matrix[row, col] = commArgs[col];
+                }
+            }
+            int sum = 0;
+
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                {
+                    sum += matrix[row, col];
+                }
+            }
+            Console.WriteLine(sum);
+        }
+    }
+}
