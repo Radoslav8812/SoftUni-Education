@@ -1,0 +1,39 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace DiagonalDifference
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            var matrix = new int[n, n];
+            var firstDiagonal = 0;
+            var secondDiagonal = 0;
+
+            for (int row = 0; row < n; row++)
+            {
+                var currentRow = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                for (int col = 0; col < n; col++)
+                {
+                    matrix[row, col] = currentRow[col];
+                }
+            }
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                firstDiagonal += matrix[i, i];
+            }
+
+            for (int i = n - 1; i >= 0;  i--)
+            {
+                int row = n - i - 1;
+                int col = i;
+                secondDiagonal += matrix[row, col];
+            }
+            Console.WriteLine(Math.Abs(firstDiagonal - secondDiagonal));
+        }
+    }
+}
