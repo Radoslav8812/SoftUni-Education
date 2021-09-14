@@ -1,0 +1,39 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace x2SquaresInMatrix
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            var splitedInput = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var rows = splitedInput[0];
+            var cols = splitedInput[1];
+            var matrix = new string[rows, cols];
+            int count = 0;
+
+            for (int row = 0; row < rows; row++)
+            {
+                var currentRow = Console.ReadLine().Split().ToArray();
+                for (int col = 0; col < cols; col++)
+                {
+                    matrix[row, col] = currentRow[col];
+                }
+            }
+
+            for (int i = 0; i <= matrix.GetLongLength(0) - 2; i++)
+            {
+                for (int j = 0; j <= matrix.GetLongLength(1) - 2; j++)
+                {
+                    if (matrix[i, j] == matrix[i,j +1] && matrix[i,j] == matrix[i + 1,j] && matrix[i,j] == matrix[i + 1,j + 1])
+                    {
+                        count++;
+                    }
+                }
+            }
+            Console.WriteLine(count);
+        }
+    }
+}
