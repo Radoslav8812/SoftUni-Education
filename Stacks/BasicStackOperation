@@ -1,0 +1,46 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace BasicStackOperations
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            var splitedInput = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var numbers = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var stack = new Stack<int>(numbers);
+            var N = splitedInput[0];
+            var S = splitedInput[1];
+            var X = splitedInput[2];
+
+            if (stack.Count == 0)
+            {
+                Console.WriteLine(0);
+                return;
+            }
+            if (stack.Count > S)
+            {
+                for (int i = 0; i < S; i++)
+                {
+                    stack.Pop();
+                }
+            }
+            else
+            {
+                stack.Clear();
+                Console.WriteLine("0");
+                return;
+            }
+            if (stack.Contains(X))
+            {
+                Console.WriteLine("true");
+            }
+            else
+            {
+                Console.WriteLine(stack.Min());
+            }
+        }
+    }
+}
