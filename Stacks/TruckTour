@@ -1,0 +1,50 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace TruckTour
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            var n = int.Parse(Console.ReadLine());
+            var que = new Queue<int[]>();
+            int index = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                var commArgs = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                var petrolAmount = commArgs[0];
+                var distance = commArgs[1];
+                que.Enqueue(commArgs);
+
+            }
+
+            while (true)
+            {
+                int currentPetrol = 0;
+                foreach (var item in que)
+                {
+                    var truckFuel = item[0];
+                    var truckDistance = item[1];
+                    currentPetrol += truckFuel;
+                    currentPetrol -= truckDistance;
+
+                    if (currentPetrol < 0)
+                    {
+                        var elemment = que.Dequeue();
+                        que.Enqueue(elemment);
+                        index++;
+                        break;
+                    }
+                }
+                if (currentPetrol >= 0)
+                {
+                    Console.WriteLine(index);
+                    break;
+                }
+            }
+        }
+    }
+}
