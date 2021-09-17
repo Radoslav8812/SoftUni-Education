@@ -1,0 +1,56 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace MaximalSumMatrix
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            var splitedInput = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var rows = splitedInput[0];
+            var cols = splitedInput[1];
+            var matrix = new int[rows, cols];
+            int sum = 0;
+            int searchedRowIndex = -1;
+            int searchedColIndex = -1;
+
+            for (int row = 0; row < rows; row++)
+            {
+                var currentRow = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                for (int col = 0; col < cols; col++)
+                {
+                    matrix[row, col] = currentRow[col];
+                }
+            }
+            for (int i = 0; i < matrix.GetLength(0) - 2; i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1) - 2; j++)
+                {
+                    int rowFirstSum = matrix[i, j] + matrix[i, j + 1] + matrix[i, j + 2];
+                    int rowSecondSUm = matrix[i + 1, j] + matrix[i + 1, j + 1] + matrix[i + 1, j + 2];
+                    int rowThirdSUm = matrix[i + 2, j] + matrix[i + 2, j + 1] + matrix[i + 2, j + 2];
+                    int currentSUm = rowFirstSum + rowSecondSUm + rowThirdSUm;
+
+                    if (currentSUm > sum)
+                    {
+                        sum = currentSUm;
+                        searchedRowIndex = i;
+                        searchedColIndex = j;
+                    }
+                    
+                }
+            }
+            Console.WriteLine($"Sum = {sum}");
+            for (int k = searchedRowIndex; k <= searchedRowIndex + 2; k++)
+            {
+                for (int l = searchedColIndex; l <= searchedColIndex + 2; l++)
+                {
+                    Console.Write(matrix[k, l] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
