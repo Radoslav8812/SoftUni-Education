@@ -1,0 +1,60 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace SnakeMoves
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            var size = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var rows = size[0];
+            var cols = size[1];
+            char[,] matrix = new char[rows, cols];
+            var currentRow = Console.ReadLine();
+
+            bool isLeftToRight = true;
+            int count = 0;
+
+            for (int i = 0; i < rows; i++)
+            {
+                if (isLeftToRight)
+                {
+                    for (int j = 0; j < cols; j++)
+                    {
+                        matrix[i, j] = currentRow[count++];
+
+                        if (count == currentRow.Length)
+                        {
+                            count = 0;
+                        }
+                    }
+                    isLeftToRight = false;
+                }
+                else
+                {
+                    for (int k = matrix.GetLength(1) - 1; k >= 0; k --)
+                    {
+                        matrix[i, k] = currentRow[count++];
+
+                        if (count == currentRow.Length)
+                        {
+                            count = 0;
+                        }
+                    }
+                    isLeftToRight = true;
+                }
+            }
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write(matrix[i , j]);
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
