@@ -1,0 +1,100 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace _0._1_Bombs
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var bombEffect = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var bombCasings = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var queBombEffect = new Queue<int>(bombEffect);
+            var stackBombCasting = new Stack<int>(bombCasings);
+
+            int countCherry = 0;
+            int countDatura = 0;
+            int countSmokeDecoy = 0;
+
+            bool createdBomb = false;
+
+            int decrease = 0;
+
+            while (queBombEffect.Count > 0 && stackBombCasting.Count > 0)
+            {
+                if (countDatura >= 3 && countCherry >= 3 && countSmokeDecoy >= 3)
+                {
+                    break;
+                }
+
+                var currentEffect = queBombEffect.Peek();
+                var currentCasting = stackBombCasting.Peek() - decrease;
+                var sumaryValue = currentEffect + currentCasting;
+
+                if (sumaryValue == 40)
+                {
+                    countDatura += 1;
+                    createdBomb = true;
+                }
+                if (sumaryValue == 60)
+                {
+                    countCherry += 1;
+                    createdBomb = true;
+                }
+                if (sumaryValue == 120)
+                {
+                    countSmokeDecoy += 1;
+                    createdBomb = true;
+                }
+
+                if (createdBomb)
+                {
+                    queBombEffect.Dequeue();
+                    stackBombCasting.Pop();
+                    decrease = 0;
+                    createdBomb = false;
+                }
+                else if (currentCasting <= 0)
+                {
+                    stackBombCasting.Pop();
+                    decrease = 0;
+                }
+                else
+                {
+                    decrease += 5;
+                }
+            }
+            if (countDatura >= 3 && countCherry >= 3 && countSmokeDecoy >= 3)
+            {
+                Console.WriteLine($"Bene! You have successfully filled the bomb pouch!");
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough materials to fill the bomb pouch.");
+            }
+
+            if (queBombEffect.Count == 0)
+            {
+                Console.WriteLine($"Bomb Effects: empty");
+            }
+            else
+            {
+                Console.WriteLine($"Bomb Effects: " + string.Join(", ", queBombEffect));
+            }
+
+            if (stackBombCasting.Count == 0)
+            {
+                Console.WriteLine($"Bomb Casings: empty");
+            }
+            else
+            {
+                Console.WriteLine($"Bomb Casings: " + string.Join(", ", stackBombCasting));
+            }
+
+            Console.WriteLine($"Cherry Bombs: {countCherry}");
+            Console.WriteLine($"Datura Bombs: {countDatura}");
+            Console.WriteLine($"Smoke Decoy Bombs: {countSmokeDecoy}");
+        }
+    }
+}
