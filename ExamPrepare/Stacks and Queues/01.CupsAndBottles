@@ -1,0 +1,67 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace CupsAndBottles
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            var cupsCapacity = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var CupQueue = new Queue<int>(cupsCapacity);
+            var filledBottles = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var StackOfBottles = new Stack<int>(filledBottles);
+
+            int wastedWater = 0;
+            
+            while (CupQueue.Any() || StackOfBottles.Any())
+            {
+                if (!CupQueue.Any() || !StackOfBottles.Any())
+                {
+                    break;
+                }
+                var currentCup = CupQueue.Peek();
+                var currentBottle = StackOfBottles.Peek();
+
+                if (currentBottle >= currentCup)
+                {
+                    wastedWater += currentBottle - currentCup;
+                    CupQueue.Dequeue();
+                    StackOfBottles.Pop();
+                }
+                else if (currentBottle < currentCup)
+                {
+                    var remainingCupValue = currentCup - currentBottle;
+                    StackOfBottles.Pop();
+
+                    while (remainingCupValue > 0 && StackOfBottles.Count > 0)
+                    {
+                        var nextBottle = StackOfBottles.Peek();
+                        if (nextBottle > remainingCupValue)
+                        {
+                            wastedWater += nextBottle - remainingCupValue;
+                            remainingCupValue -= nextBottle;
+                        }
+                        else
+                        {
+                            remainingCupValue -= nextBottle;
+                        }
+                        StackOfBottles.Pop();
+                    }
+                    CupQueue.Dequeue();
+                }
+            }
+            if (StackOfBottles.Count > 0 && CupQueue.Count == 0)
+            {
+                Console.WriteLine($"Bottles: {string.Join(" ", StackOfBottles)}");
+                Console.WriteLine($"Wasted litters of water: {wastedWater}");
+            }
+            else if (StackOfBottles.Count == 0 && CupQueue.Count > 0)
+            {
+                Console.WriteLine($"Cups: {string.Join(" ", CupQueue)}");
+                Console.WriteLine($"Wasted litters of water: {wastedWater}");
+            }
+        }
+    }
+}
