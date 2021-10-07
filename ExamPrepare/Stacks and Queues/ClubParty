@@ -1,0 +1,52 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace _01.Club_Party
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int maxCapacity = int.Parse(Console.ReadLine());
+            string[] input = Console.ReadLine().Split(" ");
+
+            var elementsStack = new Stack<string>(input);
+            var hallsQue = new Queue<string>();
+            var allGroupsList = new List<int>();
+
+            int currentCapacity = 0;
+
+            while (elementsStack.Any())
+            {
+                string currentElement = elementsStack.Pop();
+
+                bool isNumber = int.TryParse(currentElement, out int parsedNumber);
+
+                if (!isNumber)
+                {
+                    hallsQue.Enqueue(currentElement);
+                }
+                else
+                {
+                    if (hallsQue.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    if (currentCapacity + parsedNumber > maxCapacity)
+                    {
+                        Console.WriteLine($"{hallsQue.Dequeue()} -> {string.Join(", ", hallsQue)}");
+                        allGroupsList.Clear();
+                        currentCapacity = 0;
+                    }
+                    if (hallsQue.Any())
+                    {
+                        allGroupsList.Add(parsedNumber);
+                        currentCapacity += parsedNumber;
+                    }
+                }
+            }
+        }
+    }
+}
