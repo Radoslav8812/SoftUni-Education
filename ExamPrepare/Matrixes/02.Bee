@@ -1,0 +1,138 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _02_Bee
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var n = int.Parse(Console.ReadLine());
+            int rows = n;
+            int cols = n;
+            var matrix = new char[rows, cols];
+            var beeRow = -1;
+            var beeCol = -1;
+
+            for (int row = 0; row < rows; row++)
+            {
+                var currentRow = Console.ReadLine();
+                for (int col = 0; col < cols; col++)
+                {
+                    matrix[row, col] = currentRow[col];
+
+                    if (matrix[row, col] == 'B')
+                    {
+                        beeRow = row;
+                        beeCol = col;
+                    }
+                }
+            }
+
+            string direction = Console.ReadLine();
+            int flowers = 0;
+
+            while (direction != "End")
+            {
+                matrix[beeRow, beeCol] = '.';
+
+                if (direction == "up")
+                {
+                    beeRow--;
+                }
+                if (direction == "down")
+                {
+                    beeRow++;
+                }
+                if (direction == "left")
+                {
+                    beeCol--;
+                }
+                if (direction == "right")
+                {
+                    beeCol++;
+                }
+
+                if (!IsInside(matrix, beeRow, beeCol))
+                {
+                    Console.WriteLine("The bee got lost!");
+                    break;
+                }
+
+                if (matrix[beeRow, beeCol] == 'f')
+                {
+                    flowers++;
+                }
+
+                if (matrix[beeRow, beeCol] == 'O')
+                {
+                    matrix[beeRow, beeCol] = '.';
+
+                    if (!IsInside(matrix, beeRow, beeCol))
+                    {
+                        Console.WriteLine("The bee got lost!");
+                        break;
+                    }
+
+                    if (direction == "up")
+                    {
+                        beeRow--;
+                    }
+                    if (direction == "down")
+                    {
+                        beeRow++;
+                    }
+                    if (direction == "left")
+                    {
+                        beeCol--;
+                    }
+                    if (direction == "right")
+                    {
+                        beeCol++;
+                    }
+
+                    if (matrix[beeRow, beeCol] == 'f')
+                    {
+                        flowers++;
+                    }
+                }
+                matrix[beeRow, beeCol] = 'B';
+
+
+                direction = Console.ReadLine();
+            }
+
+            if (flowers < 5)
+            {
+                Console.WriteLine($"The bee couldn't pollinate the flowers, she needed {5 - flowers} flowers more");
+            }
+            else
+            {
+                Console.WriteLine($"Great job, the bee managed to pollinate {flowers} flowers!");
+            }
+            PrintMatrix(matrix);
+        }
+
+        static void PrintMatrix(char[,] matrix)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write(matrix[i, j]);
+                }
+                Console.WriteLine();
+            }
+        }
+        static bool IsInside(char[,] matrix, int row, int col)
+        {
+            bool isInside = false;
+            if (row >= 0 && row < matrix.GetLength(0) && col >= 0 && col < matrix.GetLength(1))
+            {
+                isInside = true;
+            }
+            return isInside;
+        }
+    }
+}
