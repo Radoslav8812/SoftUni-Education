@@ -1,0 +1,59 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace _01_Flower_Wreaths
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var lilies = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var stack = new Stack<int>(lilies);
+            var roses = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var queue = new Queue<int>(roses);
+
+            var wreathsCount = 0;
+            var sum = 0;
+
+            while (true)
+            {
+                if (wreathsCount == 5)
+                {
+                    Console.WriteLine("You made it, you are going to the competition with 5 wreaths!");
+                    return;
+                }
+                if (stack.Count == 0 || queue.Count == 0)
+                {
+                    break;
+                }
+                var lily = stack.Peek();
+                var rose = queue.Peek();
+
+                if (lily + rose == 15)
+                {
+                    stack.Pop();
+                    queue.Dequeue();
+                    wreathsCount++;
+                }
+                else if (lily + rose > 15)
+                {
+                    var elementToDecrease = stack.Pop() - 2;
+                    stack.Push(elementToDecrease);
+                }
+                else if (lily + rose < 15)
+                {
+                    var item1 = stack.Pop();
+                    var item2 = queue.Dequeue();
+                    var res = item1 + item2;
+                    sum += res;  
+                }  
+            }
+            if (wreathsCount < 5)
+            {
+                Console.WriteLine($"You didn't make it, you need {Math.Abs(5 - ((sum / 15) + wreathsCount))} wreaths more!");
+                return;
+            }
+        }
+    }
+}
