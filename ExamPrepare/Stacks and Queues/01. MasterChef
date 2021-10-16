@@ -1,0 +1,97 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace _01._Masterchef
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var ingredients = Console.ReadLine().Split(" ",StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var QueIngredients = new Queue<int>(ingredients);
+
+            var freshness = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var StackFreshness = new Stack<int>(freshness);
+
+            int dippingSause = 0;
+            int greenSalad = 0;
+            int chocolateCake = 0;
+            int lobster = 0;
+
+            while (QueIngredients.Count > 0 && StackFreshness.Count > 0)
+            {
+                var ingredient = QueIngredients.Peek();
+                var fresh = StackFreshness.Peek();
+                var freshnessLevel = ingredient * fresh;
+
+                if (freshnessLevel == 150)
+                {
+                    dippingSause++;
+                    QueIngredients.Dequeue();
+                    StackFreshness.Pop();
+                }
+                else if (freshnessLevel == 250)
+                {
+                    greenSalad++;
+                    QueIngredients.Dequeue();
+                    StackFreshness.Pop();
+                }
+                else if (freshnessLevel == 300)
+                {
+                    chocolateCake++;
+                    QueIngredients.Dequeue();
+                    StackFreshness.Pop();
+                }
+                else if (freshnessLevel == 400)
+                {
+                    lobster++;
+                    QueIngredients.Dequeue();
+                    StackFreshness.Pop();
+                }
+                else if (ingredient == 0)
+                {
+                    QueIngredients.Dequeue();
+                    continue;
+                }
+                else
+                {
+                    StackFreshness.Pop();
+                    ingredient += 5;
+                    QueIngredients.Dequeue();
+                    QueIngredients.Enqueue(ingredient);
+                }
+            }
+
+            if (dippingSause > 0 && greenSalad > 0 && chocolateCake > 0 && lobster > 0)
+            {
+                Console.WriteLine("Applause! The judges are fascinated by your dishes!");
+                Console.WriteLine($" # Chocolate cake --> {chocolateCake}");
+                Console.WriteLine($" # Dipping sauce --> {dippingSause}");
+                Console.WriteLine($" # Green salad --> {greenSalad}");
+                Console.WriteLine($" # Lobster --> {lobster}");
+            }
+            else
+            {
+                Console.WriteLine("You were voted off. Better luck next year.");
+                Console.WriteLine($"Ingredients left: {QueIngredients.Sum()}");
+                if (chocolateCake > 0)
+                {
+                    Console.WriteLine($" # Chocolate cake --> {chocolateCake}");
+                }
+                if (dippingSause > 0)
+                {
+                    Console.WriteLine($" # Dipping sauce --> {dippingSause}");
+                }
+                if (greenSalad > 0)
+                {
+                    Console.WriteLine($" # Green salad --> {greenSalad}");
+                }
+                if (lobster > 0)
+                {
+                    Console.WriteLine($" # Lobster --> {lobster}");
+                }
+            }
+        }
+    }
+}
