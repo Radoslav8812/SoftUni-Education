@@ -1,0 +1,90 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace _02._The_Battle_of_the_Five_Armies
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var armor = int.Parse(Console.ReadLine());
+            var rows = int.Parse(Console.ReadLine());
+            var matrix = new char[rows][];
+
+            var armyRow = -1;
+            var armyCol = -1;
+
+            for (int i = 0; i < rows; i++)
+            {
+                var currentRow = Console.ReadLine().ToCharArray();
+                matrix[i] = currentRow;
+            }
+
+            for (int i = 0; i < rows; i++) // across whole jagged array
+            {
+                for (int j = 0; j < matrix[i].Length; j++)
+                {
+                    if (matrix[i][j] == 'A')
+                    {
+                        armyRow = i;
+                        armyCol = j;
+                    }
+                }
+            }
+
+            while (true)
+            {
+                var splitedInput = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).ToArray();
+                var direction = splitedInput[0];
+                var enemyRow = int.Parse(splitedInput[1]);
+                var enemyCol = int.Parse(splitedInput[2]);
+
+                armor--;
+                matrix[enemyRow][enemyCol] = 'O';
+                matrix[armyRow][armyCol] = '-';
+
+                if (direction == "up" && armyRow - 1 >= 0)
+                {
+                    armyRow--;
+                }
+                if (direction == "down" && armyRow + 1 < rows)
+                {
+                    armyRow++;
+                }
+                if (direction == "left" && armyCol - 1 >= 0)
+                {
+                    armyCol--;
+                }
+                if (direction == "right" && armyCol + 1 < matrix[armyRow].Length)
+                {
+                    armyCol++;
+                }
+
+                if (matrix[armyRow][armyCol] == 'O')
+                {
+                    armor -= 2;
+                }
+                if (matrix[armyRow][armyCol] == 'M')
+                {
+                    matrix[armyRow][armyCol] = '-';
+                    Console.WriteLine($"The army managed to free the Middle World! Armor left: {armor}");
+                    break;
+                }
+                if (armor <= 0)
+                {
+                    matrix[armyRow][armyCol] = 'X';
+                    Console.WriteLine($"The army was defeated at {armyRow};{armyCol}.");
+                    break;
+                }
+
+                matrix[armyRow][armyCol] = 'A';
+            }
+
+            for (int i = 0; i < rows; i++)
+            {
+                Console.WriteLine(new string(matrix[i]));
+            }
+        }
+    }
+}
