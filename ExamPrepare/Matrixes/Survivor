@@ -1,0 +1,138 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace _02._Survivor
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var n = int.Parse(Console.ReadLine());
+            var matrix = new char[n][];
+
+            for (int row = 0; row < n; row++)
+            {
+                char[] currentRow = Console.ReadLine().Replace(" ", "").ToCharArray();
+                matrix[row] = currentRow;
+            }
+
+            var tokens = 0;
+            var oponentTokens = 0;
+
+            string commandArgs;
+            while ((commandArgs = Console.ReadLine()) != "Gong")
+            {
+                var splitedInput = commandArgs.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                //var command = splitedInput[0];
+                var row = int.Parse(splitedInput[1]);
+                var col = int.Parse(splitedInput[2]);
+                
+                if (splitedInput.Length == 3)
+                {
+                    if (IsValidIndexes(row, col, matrix))
+                    {
+                        if (matrix[row][col] == 'T')
+                        {
+                            tokens++;
+                            matrix[row][col] = '-';
+                        }
+                    }
+                }
+                else
+                {
+                    var direction = splitedInput[3];
+
+                    if (IsValidIndexes(row, col, matrix))
+                    {
+                        if (matrix[row][col] == 'T')
+                        {
+                            oponentTokens++;
+                            matrix[row][col] = '-';
+                        }
+                    }
+                    if (direction == "up")
+                    {
+                        for (int i = 1; i <= 3; i++)
+                        {
+                            var movement = row - i;
+
+                            if (IsValidIndexes(movement, col, matrix))
+                            {
+                                if (matrix[movement][col] == 'T')
+                                {
+                                    oponentTokens++;
+                                    matrix[movement][col] = '-';
+                                }
+                            }
+                        }
+                    }
+                    if (direction == "down")
+                    {
+                        for (int i = 1; i <= 3; i++)
+                        {
+                            var movement = row + i;
+
+                            if (IsValidIndexes(movement, col, matrix))
+                            {
+                                if (matrix[movement][col] == 'T')
+                                {
+                                    oponentTokens++;
+                                    matrix[movement][col] = '-';
+                                }
+                            }
+                        }
+                    }
+                    if (direction == "left")
+                    {
+                        for (int i = 1; i <= 3; i++)
+                        {
+                            var movement = col - i;
+
+                            if (IsValidIndexes(row, movement, matrix))
+                            {
+                                if (matrix[row][movement] == 'T')
+                                {
+                                    oponentTokens++;
+                                    matrix[row][movement] = '-';
+                                }
+                            }
+                        }
+                    }
+                    if (direction == "right")
+                    {
+                        for (int i = 1; i <= 3; i++)
+                        {
+                            var movement = col + i;
+
+                            if (IsValidIndexes(row, movement, matrix))
+                            {
+                                if (matrix[row][movement] == 'T')
+                                {
+                                    oponentTokens++;
+                                    matrix[row][movement] = '-';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            PrintMatrix(matrix);
+            Console.WriteLine($"Collected tokens: {tokens}");
+            Console.WriteLine($"Opponent's tokens: {oponentTokens}");
+        }
+        public static bool IsValidIndexes(int row, int col, char[][] matrix)
+        {
+            return row >= 0 && row < matrix.GetLength(0) && col >= 0 && col < matrix[row].Length;
+        }
+        private static void PrintMatrix(char[][] matrix)
+        {
+            foreach (var line in matrix)
+            {
+                var currentLine = string.Join(' ', line);
+                Console.WriteLine(currentLine);
+            }
+        }
+    }
+}
