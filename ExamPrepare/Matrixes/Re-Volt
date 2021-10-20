@@ -1,0 +1,210 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace Re_Volt
+{
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            int command = int.Parse(Console.ReadLine());
+            var matrix = new char[n, n];
+            var playerRow = -1;
+            var playerCol = -1;
+
+            bool isWon = false;
+
+            for (int row = 0; row < n; row++)
+            {
+                var currentRow = Console.ReadLine();
+                for (int col = 0; col < n; col++)
+                {
+                    matrix[row, col] = currentRow[col];
+
+                    if (matrix[row, col] == 'f')
+                    {
+                        playerRow = row;
+                        playerCol = col;
+                    }
+                }
+            }
+
+            while (command != 0)
+            {
+                command--;
+                matrix[playerRow, playerCol] = '-';
+                var direction = Console.ReadLine();
+
+                if (direction == "up")
+                {
+                    if (playerRow - 1 >= 0)
+                    {
+                        playerRow--;
+                    }
+                    else
+                    {
+                        playerRow = matrix.GetLength(0) - 1;
+                    }
+
+                    while (matrix[playerRow, playerCol] != '-' && matrix[playerRow, playerCol] != 'F')
+                    {
+                        if (matrix[playerRow, playerCol] == 'T')
+                        {
+                            playerRow++;
+                        }
+                        else if (matrix[playerRow, playerCol] == 'B')
+                        {
+                            playerRow--;
+                        }
+
+                        if (playerRow < 0)
+                        {
+                            playerRow = matrix.GetLength(0) - 1;
+                        }
+                    }
+                    if (matrix[playerRow, playerCol] == 'F')
+                    {
+                        isWon = true;
+                        break;
+                    }
+                    matrix[playerRow, playerCol] = 'f';
+                }
+                if (direction == "down")
+                {
+                    if (playerRow + 1 < matrix.GetLength(0))
+                    {
+                        playerRow++;
+                    }
+                    else
+                    {
+                        playerRow = 0;
+                    }
+
+                    while (matrix[playerRow, playerCol] != '-' && matrix[playerRow, playerCol] != 'F')
+                    {
+                        if (matrix[playerRow, playerCol] == 'T')
+                        {
+                            playerRow--;
+                        }
+                        else if (matrix[playerRow, playerCol] == 'B')
+                        {
+                            playerRow++;
+                        }
+
+                        if (playerRow == matrix.GetLength(0))
+                        {
+                            playerRow = 0;
+                        }
+                    }
+                    if (matrix[playerRow, playerCol] == 'F')
+                    {
+                        isWon = true;
+                        break;
+                    }
+                    matrix[playerRow, playerCol] = 'f';
+                }
+                if (direction == "left")
+                {
+                    if (playerCol - 1 >= 0)
+                    {
+                        playerCol--;
+                    }
+                    else
+                    {
+                        playerCol = matrix.GetLength(1) - 1;
+                    }
+
+                    while (matrix[playerRow, playerCol] != '-' && matrix[playerRow, playerCol] != 'F')
+                    {
+                        if (matrix[playerRow, playerCol] == 'T')
+                        {
+                            playerCol++;
+                        }
+                        else if (matrix[playerRow, playerCol] == 'B')
+                        {
+                            playerCol--;
+                        }
+
+                        if (playerCol < 0)
+                        {
+                            playerCol= matrix.GetLength(1) - 1;
+                        }
+                    }
+                    if (matrix[playerRow, playerCol] == 'F')
+                    {
+                        isWon = true;
+                        break;
+                    }
+                    matrix[playerRow, playerCol] = 'f';
+                }
+                if (direction == "right")
+                {
+                    if (playerCol + 1 < matrix.GetLength(1))
+                    {
+                        playerCol++;
+                    }
+                    else
+                    {
+                        playerCol = 0;
+                    }
+
+                    while (matrix[playerRow, playerCol] != '-' && matrix[playerRow, playerCol] != 'F')
+                    {
+                        if (matrix[playerRow, playerCol] == 'T')
+                        {
+                            playerCol--;
+                        }
+                        else if (matrix[playerRow, playerCol] == 'B')
+                        {
+                            playerCol++;
+                        }
+
+                        if (playerCol == matrix.GetLength(1))
+                        {
+                            playerCol = 0;
+                        }
+                    }
+                    if (matrix[playerRow, playerCol] == 'F')
+                    {
+                        isWon = true;
+                        break;
+                    }
+                    matrix[playerRow, playerCol] = 'f';
+                }
+            }
+            if (isWon)
+            {
+                matrix[playerRow, playerCol] = 'f';
+                Console.WriteLine("Player won!");
+            }
+            else
+            {
+                Console.WriteLine($"Player lost!");
+            }
+
+            PrintMatrix(matrix);
+        }
+        static void PrintMatrix(char[,] matrix)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write(matrix[i, j]);
+                }
+                Console.WriteLine();
+            }
+        }
+        static bool IsInside(char[,] matrix, int row, int col)
+        {
+            bool isInside = false;
+            if (row >= 0 && row < matrix.GetLength(0) && col >= 0 && col < matrix.GetLength(1))
+            {
+                isInside = true;
+            }
+            return isInside;
+        }
+    }
+}
