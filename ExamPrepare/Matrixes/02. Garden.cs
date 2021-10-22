@@ -42,7 +42,7 @@ namespace _02._Garden
 
                 for (int i = 0; i < matrix.GetLength(0); i++)
                 {
-                    matrix[furionRow,   ]++;
+                    matrix[furionRow, i]++;
                 }
                 for (int i = 0; i < matrix.GetLength(1); i++)
                 {
