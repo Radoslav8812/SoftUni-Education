@@ -1,2 +1,0 @@
-# C-SoftUni
-SoftUni Education
