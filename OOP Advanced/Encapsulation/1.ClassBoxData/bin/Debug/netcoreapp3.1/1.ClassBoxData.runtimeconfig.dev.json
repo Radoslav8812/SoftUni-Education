@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "/Users/grim8712reaper/.dotnet/store/|arch|/|tfm|",
-      "/Users/grim8712reaper/.nuget/packages"
-    ]
-  }
-}
