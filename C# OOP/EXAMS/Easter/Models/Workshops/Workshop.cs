@@ -21,6 +21,11 @@ namespace Easter.Models.Workshops
                     break;
                 }
 
+                if (egg.IsDone())
+                {
+                    break;
+                }
+
                 if (bunny.Dyes.Count == 0)
                 {
                     break;
@@ -31,7 +36,6 @@ namespace Easter.Models.Workshops
                 if (firstDye.IsFinished())
                 {
                     bunny.Dyes.Remove(firstDye);
-                    break;
                 }
 
                 bunny.Work();
