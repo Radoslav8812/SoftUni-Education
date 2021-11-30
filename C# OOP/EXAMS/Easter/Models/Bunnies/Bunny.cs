@@ -57,9 +57,6 @@ namespace Easter.Models.Bunnies
             Dyes.Add(dye);
         }
 
-        public virtual void Work()
-        {
-            Energy -= 10;
-        }
+        public abstract void Work();
     }
 }
