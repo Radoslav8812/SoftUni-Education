@@ -45,6 +45,22 @@ namespace WarCroft.Entities.Characters.Contracts
             }
         }
 
+        public double BaseArmor
+        {
+            get
+            {
+                return baseArmor;
+            }
+        }
+
+        public double BaseHealth
+        {
+            get
+            {
+                return baseHealth;
+            }
+        }
+
         public double Health
         {
             get
