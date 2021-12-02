@@ -4,8 +4,7 @@ using System.Text;
 
 namespace EasterRaces.Core.Contracts
 {
-    public interface IEngine
+    class IEngine
     {
-        void Run();
     }
 }

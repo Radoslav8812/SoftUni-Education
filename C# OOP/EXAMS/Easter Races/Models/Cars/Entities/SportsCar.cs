@@ -1,5 +1,5 @@
 ﻿using System;
-namespace EasterRaces.Models.Cars.Entities
+namespace EasterRaces.Models.Cars
 {
     public class SportsCar : Car
     {

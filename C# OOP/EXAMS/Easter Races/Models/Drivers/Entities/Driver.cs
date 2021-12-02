@@ -7,7 +7,6 @@ namespace EasterRaces.Models.Drivers.Entities
     public class Driver : IDriver
     {
         private string name;
-        private int numberOfWins;
 
         public Driver(string name)
         {
@@ -18,59 +17,39 @@ namespace EasterRaces.Models.Drivers.Entities
         {
             get
             {
-                return name;
+                return Name;
             }
             private set
             {
-                if (string.IsNullOrWhiteSpace(value) || value.Length < 5)
+                if (string.IsNullOrEmpty(value) || value.Length < 5)
                 {
-                    throw new ArgumentException($"Name {name} cannot be less than 5 symbols.");
+                    throw new ArgumentException($"Name {value} cannot be less than 5 symbols.");
                 }
-                name = value;
             }
         }
 
-        public ICar Car
+        public ICar Car { get; private set; }
+
+        public int NumberOfWins { get; private set; }
+
+        public bool CanParticipate
         {
             get
             {
-                return Car;
-            }
-            private set
-            {
-                Car = value;
+                return Car != null;
             }
         }
-
-        public int NumberOfWins
-        {
-            get
-            {
-                return numberOfWins;
-            }
-            private set
-            {
-                numberOfWins = value;
-            }
-        }
-
-        public bool CanParticipate => this.Car != null;
 
         public void AddCar(ICar car)
         {
-            if (car == null)
-            {
-                throw new ArgumentException("Car cannot be null.");
-            }
-            else
-            {
-                Car = car;
-            }
+            throw new ArgumentNullException(nameof(ICar), "Car cannot be null.");
+
+            Car = car;
         }
 
         public void WinRace()
         {
-            NumberOfWins += 1;
+            NumberOfWins++;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using EasterRaces.Models.Cars.Contracts;
-using EasterRaces.Utilities.Messages;
 
 namespace EasterRaces.Models.Cars
 {
@@ -8,14 +7,15 @@ namespace EasterRaces.Models.Cars
     {
         private string model;
         private int horsePower;
-        private double cubicCentimeters;
+
         private int minHorsePower;
         private int maxHorsePower;
 
-        public Car(string model, int horsePower, double cubicCentimeters, int minHorsePower, int maxHorsePower)
+        protected Car(string model, int horsePower, double cubicCentimeters, int minHorsePower, int maxHorsePower)
         {
             this.minHorsePower = minHorsePower;
             this.maxHorsePower = maxHorsePower;
+
             Model = model;
             HorsePower = horsePower;
             CubicCentimeters = cubicCentimeters;
@@ -31,7 +31,7 @@ namespace EasterRaces.Models.Cars
             {
                 if (string.IsNullOrWhiteSpace(value) || value.Length < 4)
                 {
-                    throw new ArgumentException($"Model {model} cannot be less than 4 symbols.");
+                    throw new ArgumentException($"Model {value} cannot be less than 4 symbols.");
                 }
                 model = value;
             }
@@ -45,25 +45,18 @@ namespace EasterRaces.Models.Cars
             }
             private set
             {
-                if (value < minHorsePower || value > maxHorsePower)
+                if (value > this.minHorsePower && value < this.maxHorsePower)
                 {
-                    throw new ArgumentException($"Invalid horse power: {horsePower}.");
+                    horsePower = value;
                 }
-                horsePower = value;
+                else
+                {
+                    throw new ArgumentException($"Invalid horse power: {value}.");
+                }
             }
         }
 
-        public double CubicCentimeters
-        {
-            get
-            {
-                return cubicCentimeters;
-            }
-            private set
-            {
-                cubicCentimeters = value;
-            }
-        }
+        public double CubicCentimeters { get; private set; }
 
         public double CalculateRacePoints(int laps)
         {
