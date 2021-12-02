@@ -52,13 +52,7 @@ namespace EasterRaces.Models.Races.Entities
             }
         }
 
-        public IReadOnlyCollection<IDriver> Drivers
-        {
-            get
-            {
-                return drivers;
-            }
-        }
+        public IReadOnlyCollection<IDriver> Drivers => drivers;
 
         public void AddDriver(IDriver driver)
         {

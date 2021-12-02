@@ -17,7 +17,7 @@ namespace EasterRaces.Models.Drivers.Entities
         {
             get
             {
-                return Name;
+                return name;
             }
             private set
             {
@@ -25,6 +25,7 @@ namespace EasterRaces.Models.Drivers.Entities
                 {
                     throw new ArgumentException($"Name {value} cannot be less than 5 symbols.");
                 }
+                name = value;
             }
         }
 
@@ -32,18 +33,15 @@ namespace EasterRaces.Models.Drivers.Entities
 
         public int NumberOfWins { get; private set; }
 
-        public bool CanParticipate
-        {
-            get
-            {
-                return Car != null;
-            }
-        }
+        public bool CanParticipate => Car != null;
 
         public void AddCar(ICar car)
         {
-            throw new ArgumentNullException(nameof(ICar), "Car cannot be null.");
-
+            if (car == null)
+            {
+                throw new ArgumentNullException(nameof(ICar), "Car cannot be null.");
+            }
+            
             Car = car;
         }
 
