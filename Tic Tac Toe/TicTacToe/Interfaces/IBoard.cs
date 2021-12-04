@@ -12,7 +12,7 @@ namespace TicTacToe.Interfaces
 
         void PlaseSymbol(Index index, Symbol symbol);
 
-        IEnumerable<Index> GetEmptyPosition();
+        IEnumerable<Index> GetEmptyPositions();
 
         Symbol GetRowSymbol(int row);
 

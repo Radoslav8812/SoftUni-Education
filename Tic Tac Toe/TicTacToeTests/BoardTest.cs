@@ -46,5 +46,29 @@ namespace TicTacToeTests
 
             Assert.AreEqual(Symbol.O, board.GetRowSymbol(2));
         }
+
+        [Test]
+        public void GetColSymbolWorkCorrectly()
+        {
+            var board = new Board(3, 3);
+
+            for (int i = 0; i < board.Rows; i++)
+            {
+                Assert.AreEqual(Symbol.None, board.GetColSymbol(2));
+
+                board.PlaseSymbol(new TicTacToe.Implement.Index(i, 1), Symbol.X);
+            }
+
+            Assert.AreEqual(Symbol.X, board.GetColSymbol(1));
+        }
+
+        //[Test]
+        //public void GetEmptyPositionsReturnCorrectPositions()
+        //{
+        //    var board = new Board(3, 3);
+        //    var positions = board.GetEmptyPositions();
+            
+        //    Assert.AreEqual(3 * 3, positions);
+        //}
     }
 }

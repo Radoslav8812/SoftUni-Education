@@ -113,7 +113,7 @@ namespace TicTacToe
             return symbol;
         }
 
-        public IEnumerable<Index> GetEmptyPosition()
+        public IEnumerable<Index> GetEmptyPositions()
         {
             var positions = new List<Index>();
 
