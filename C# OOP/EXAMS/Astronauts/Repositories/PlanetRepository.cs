@@ -8,7 +8,6 @@ namespace SpaceStation.Repositories
 {
     public class PlanetRepository : IRepository<IPlanet>
     {
-
         private readonly List<IPlanet> planets;
 
         public PlanetRepository()

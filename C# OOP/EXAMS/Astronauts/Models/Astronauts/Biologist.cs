@@ -9,11 +9,15 @@ namespace SpaceStation.Models.Astronauts
 
         public override void Breath()
         {
-            base.Breath();
+            //base.Breath();
 
-            if (this.Oxygen - 5 > 0)
+            if (Oxygen - 5 > 0)
             {
-                this.Oxygen -= 5;
+                Oxygen -= 5;
+            }
+            else
+            {
+                Oxygen = 0;
             }
         }
     }
