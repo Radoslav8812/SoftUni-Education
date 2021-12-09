@@ -113,7 +113,7 @@ namespace SpaceStation.Core
         {
             var astronaut = astroRepo.FindByName(astronautName);
 
-            if (astroRepo.Models != astronaut)
+            if (!astroRepo.Models.Contains(astronaut))
             {
                 throw new InvalidOperationException($"Astronaut {astronautName} doesn't exists!");
             }
