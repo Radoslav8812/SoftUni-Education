@@ -1,27 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Collections.Generic;
 using Bakery.Models.BakedFoods.Contracts;
 using Bakery.Models.Drinks.Contracts;
 using Bakery.Models.Tables.Contracts;
-using Bakery.Utilities.Messages;
 
 namespace Bakery.Models.Tables
 {
     public abstract class Table : ITable
     {
-        private List<IBakedFood> FoodOrders;
-        private List<IDrink> DrinkOrders;
         private int capacity;
         private int numberOfPeople;
+
+        private readonly List<IBakedFood> foodOrders;
+        private readonly List<IDrink> drinkOrders;
 
         public Table(int tableNumber, int capacity, decimal pricePerPerson)
         {
             TableNumber = tableNumber;
             Capacity = capacity;
             PricePerPerson = pricePerPerson;
-            FoodOrders = new List<IBakedFood>();
-            DrinkOrders = new List<IDrink>();
+
+            foodOrders = new List<IBakedFood>();
+            drinkOrders = new List<IDrink>();
         }
 
         public int TableNumber { get; private set; }
@@ -34,9 +35,9 @@ namespace Bakery.Models.Tables
             }
             private set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidTableCapacity);
+                    throw new ArgumentException("Capacity has to be greater than 0");
                 }
                 capacity = value;
             }
@@ -52,7 +53,7 @@ namespace Bakery.Models.Tables
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidNumberOfPeople);
+                    throw new ArgumentException("Cannot place zero or less people!");
                 }
                 numberOfPeople = value;
             }
@@ -72,9 +73,9 @@ namespace Bakery.Models.Tables
 
         public void Clear()
         {
-            FoodOrders.Clear();
-            DrinkOrders.Clear();         
-            NumberOfPeople = 0;
+            foodOrders.Clear();
+            drinkOrders.Clear();
+            numberOfPeople = 0;
             IsReserved = false;
         }
 
@@ -82,12 +83,12 @@ namespace Bakery.Models.Tables
         {
             decimal bill = 0;
 
-            foreach (var food in FoodOrders)
+            foreach (var food in foodOrders)
             {
                 bill += food.Price;
             }
 
-            foreach (var drink in DrinkOrders)
+            foreach (var drink in drinkOrders)
             {
                 bill += drink.Price;
             }
@@ -98,24 +99,24 @@ namespace Bakery.Models.Tables
 
         public string GetFreeTableInfo()
         {
-            var sb = new StringBuilder();
+            var builder = new StringBuilder();
 
-            sb.AppendLine($"Table: {TableNumber}");
-            sb.AppendLine($"Type: {this.GetType().Name}");
-            sb.AppendLine($"Capacity: {Capacity}");
-            sb.AppendLine($"Price per Person: {PricePerPerson}");
+            builder.AppendLine($"Table: {TableNumber}");
+            builder.AppendLine($"Type: {GetType().Name}");
+            builder.AppendLine($"Capacity: {Capacity}");
+            builder.AppendLine($"Price per Person: {PricePerPerson}");
 
-            return sb.ToString().TrimEnd();
+            return builder.ToString().TrimEnd();
         }
 
         public void OrderDrink(IDrink drink)
         {
-            this.DrinkOrders.Add(drink);
+            drinkOrders.Add(drink);
         }
 
         public void OrderFood(IBakedFood food)
         {
-            this.FoodOrders.Add(food);
+            foodOrders.Add(food);
         }
 
         public void Reserve(int numberOfPeople)

@@ -1,6 +1,4 @@
 ﻿using System;
-using Bakery.Models.Tables.Contracts;
-
 namespace Bakery.Models.Tables
 {
     public class OutsideTable : Table

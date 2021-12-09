@@ -1,23 +1,23 @@
 ﻿using System;
-using Bakery.Core.Contracts;
 using System.Collections.Generic;
 using System.Linq;
-using Bakery.Models.BakedFoods.Contracts;
-using Bakery.Models.Drinks.Contracts;
-using Bakery.Models.Tables.Contracts;
+using System.Text;
 using Bakery.Models.BakedFoods;
+using Bakery.Models.BakedFoods.Contracts;
 using Bakery.Models.Drinks;
+using Bakery.Models.Drinks.Contracts;
 using Bakery.Models.Tables;
+using Bakery.Models.Tables.Contracts;
 
-namespace Bakery.Core
+namespace Bakery.Core.Contracts
 {
     public class Controller : IController
     {
+
         private List<IBakedFood> bakedFoods;
         private List<IDrink> drinks;
         private List<ITable> tables;
-
-        private decimal totalIncome = 0;
+        private decimal totalIncome;
 
         public Controller()
         {
@@ -32,7 +32,7 @@ namespace Bakery.Core
             {
                 drinks.Add(new Tea(name, portion, brand));
             }
-            if (type == "Water")
+            else if (type == "Water")
             {
                 drinks.Add(new Water(name, portion, brand));
             }
@@ -46,7 +46,7 @@ namespace Bakery.Core
             {
                 bakedFoods.Add(new Bread(name, price));
             }
-            if (type == "Cake")
+            else if (type == "Cake")
             {
                 bakedFoods.Add(new Cake(name, price));
             }
@@ -60,7 +60,7 @@ namespace Bakery.Core
             {
                 tables.Add(new InsideTable(tableNumber, capacity));
             }
-            if (type == "OutsideTable")
+            else if (type == "OutsideTable")
             {
                 tables.Add(new OutsideTable(tableNumber, capacity));
             }
@@ -70,12 +70,12 @@ namespace Bakery.Core
 
         public string GetFreeTablesInfo()
         {
-            var result = "";
             var freeTables = tables.Where(x => !x.IsReserved).ToList();
+            string result = "";
 
-            foreach (var freeTable in freeTables)
+            foreach (var table in freeTables)
             {
-                result += freeTable.GetFreeTableInfo() + Environment.NewLine;
+                result += table.GetFreeTableInfo() + Environment.NewLine;
             }
 
             return result.TrimEnd();
@@ -88,20 +88,24 @@ namespace Bakery.Core
 
         public string LeaveTable(int tableNumber)
         {
+            var builder = new StringBuilder();
+
             var table = tables.FirstOrDefault(x => x.TableNumber == tableNumber);
             var bill = table.GetBill();
             totalIncome += bill;
             table.Clear();
 
-            return $"Table: {tableNumber}" + Environment.NewLine +
-                    $"Bill: {bill:f2}";
+            builder.AppendLine($"Table: {tableNumber}");
+            builder.AppendLine($"Bill: {bill:f2}");
+
+            return builder.ToString().TrimEnd();
         }
 
         public string OrderDrink(int tableNumber, string drinkName, string drinkBrand)
         {
             var table = tables.FirstOrDefault(x => x.TableNumber == tableNumber);
 
-            if(table == null)
+            if (table == null)
             {
                 return $"Could not find table {tableNumber}";
             }
@@ -125,13 +129,14 @@ namespace Bakery.Core
         {
             var table = tables.FirstOrDefault(x => x.TableNumber == tableNumber);
 
-            if(table == null)
+            if (table == null)
             {
                 return $"Could not find table {tableNumber}";
             }
             else
             {
                 var food = bakedFoods.FirstOrDefault(x => x.Name == foodName);
+
                 if (food == null)
                 {
                     return $"No {foodName} in the menu";
@@ -146,7 +151,7 @@ namespace Bakery.Core
 
         public string ReserveTable(int numberOfPeople)
         {
-            var table = tables.FirstOrDefault(table => !table.IsReserved && table.Capacity >= numberOfPeople);
+            var table = tables.FirstOrDefault(x => !x.IsReserved && x.Capacity >= numberOfPeople);
 
             if (table == null)
             {
@@ -157,7 +162,6 @@ namespace Bakery.Core
                 table.Reserve(numberOfPeople);
                 return $"Table {table.TableNumber} has been reserved for {numberOfPeople} people";
             }
-            
         }
     }
 }

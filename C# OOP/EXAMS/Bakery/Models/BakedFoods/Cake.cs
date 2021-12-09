@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 namespace Bakery.Models.BakedFoods
 {
     public class Cake : BakedFood

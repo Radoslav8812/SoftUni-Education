@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using Bakery.Models.BakedFoods.Contracts;
+
 namespace Bakery.Models.BakedFoods
 {
     public class Bread : BakedFood

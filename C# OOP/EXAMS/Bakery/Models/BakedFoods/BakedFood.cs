@@ -1,6 +1,5 @@
 ﻿using System;
 using Bakery.Models.BakedFoods.Contracts;
-using Bakery.Utilities.Messages;
 
 namespace Bakery.Models.BakedFoods
 {
@@ -10,7 +9,7 @@ namespace Bakery.Models.BakedFoods
         private int portion;
         private decimal price;
 
-        public BakedFood(string name, int portion, decimal price)
+        protected BakedFood(string name, int portion, decimal price)
         {
             Name = name;
             Portion = portion;
@@ -27,7 +26,7 @@ namespace Bakery.Models.BakedFoods
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidName);
+                    throw new ArgumentException("Name cannot be null or white space!");
                 }
                 name = value;
             }
@@ -39,11 +38,11 @@ namespace Bakery.Models.BakedFoods
             {
                 return portion;
             }
-            private set
+            protected set
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidPortion);
+                    throw new ArgumentException("Portion cannot be less or equal to zero");
                 }
                 portion = value;
             }
@@ -59,7 +58,7 @@ namespace Bakery.Models.BakedFoods
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidPrice);
+                    throw new ArgumentException("Price cannot be less or equal to zero!");
                 }
                 price = value;
             }

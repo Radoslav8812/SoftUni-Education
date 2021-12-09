@@ -1,17 +1,17 @@
 ﻿using System;
 using Bakery.Models.Drinks.Contracts;
-using Bakery.Utilities.Messages;
 
 namespace Bakery.Models.Drinks
 {
     public abstract class Drink : IDrink
     {
+
         private string name;
         private int portion;
         private decimal price;
         private string brand;
 
-        public Drink(string name, int portion, decimal price, string brand)
+        protected Drink(string name, int portion, decimal price, string brand)
         {
             Name = name;
             Portion = portion;
@@ -29,7 +29,7 @@ namespace Bakery.Models.Drinks
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidName);
+                    throw new ArgumentException("Name cannot be null or white space!");
                 }
                 name = value;
             }
@@ -45,7 +45,7 @@ namespace Bakery.Models.Drinks
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidPortion);
+                    throw new ArgumentException("Portion cannot be less or equal to zero");
                 }
                 portion = value;
             }
@@ -61,7 +61,7 @@ namespace Bakery.Models.Drinks
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidPrice);
+                    throw new ArgumentException("Price cannot be less or equal to zero!");
                 }
                 price = value;
             }
@@ -77,7 +77,7 @@ namespace Bakery.Models.Drinks
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidBrand);
+                    throw new ArgumentException("Brand cannot be null or white space!");
                 }
                 brand = value;
             }
