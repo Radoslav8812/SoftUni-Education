@@ -1,18 +1,18 @@
-﻿
+﻿using System;
+using static BorderControl.IFacable;
+
 namespace BorderControl
 {
     public class Citizen : IFakable
     {
         public Citizen(string name, int age, string id)
         {
-            Name = name;
-            Age = age;
-            Id = id;
+            this.Name = name;
+            this.Age = age;
+            this.ID = id;
         }
-        public string Name {get; set;}
-
-        public int Age { get; set; }
-
-        public string Id { get; set;}
+        public int Age { get; private set; }
+        public string Name { get; set; }
+        public string ID { get; set; }
     }
 }

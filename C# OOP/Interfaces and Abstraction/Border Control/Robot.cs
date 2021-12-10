@@ -1,15 +1,17 @@
-﻿
+﻿using System;
+using static BorderControl.IFacable;
+
 namespace BorderControl
 {
     public class Robot : IFakable
     {
-        public Robot(string name, string id)
+        public Robot(string model, string id)
         {
-            Name = name;
-            Id = id;
+            this.Name = model;
+            this.ID = id;
         }
-        public string Name { get; set; }
 
-        public string Id { get; set; }
+        public string Name { get; set; }
+        public string ID { get; set; }
     }
 }
