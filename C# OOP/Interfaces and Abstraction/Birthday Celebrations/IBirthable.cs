@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BorderControl
+namespace BirthdayCelebration
 {
-    public interface IBirthable
+    interface IBirthable
     {
         public string Name { get; set; }
-        public string Birthdate { get; }
+        public string BirthDate { get; set; }
+
     }
 }

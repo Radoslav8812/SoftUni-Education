@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BorderControl
+namespace BirthdayCelebration
 {
     public class Pet : IBirthable
     {
         public Pet(string name, string birthdate)
         {
-            Name = name;
-            Birthdate = birthdate;
+            this.Name = name;
+            this.BirthDate = birthdate;
         }
         public string Name { get; set; }
-
-        public string Birthdate { get; set; }
+        public string BirthDate { get; set; }
     }
 }

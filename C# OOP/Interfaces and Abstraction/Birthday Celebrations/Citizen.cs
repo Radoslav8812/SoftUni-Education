@@ -1,21 +1,18 @@
-﻿
-namespace BorderControl
+﻿using System;
+namespace BirthdayCelebration
 {
     public class Citizen : IBirthable
     {
         public Citizen(string name, int age, string id, string birthdate)
         {
-            Name = name;
-            Age = age;
-            Id = id;
-            Birthdate = birthdate;
+            this.Name = name;
+            this.Age = age;
+            this.ID = id;
+            this.BirthDate = birthdate;
         }
-        public string Name {get; set;}
-
-        public int Age { get; set; }
-
-        public string Id { get; set;}
-
-        public string Birthdate { get; set; }
+        public int Age { get; private set; }
+        public string Name { get; set; }
+        public string ID { get; set; }
+        public string BirthDate { get; set; }
     }
 }
