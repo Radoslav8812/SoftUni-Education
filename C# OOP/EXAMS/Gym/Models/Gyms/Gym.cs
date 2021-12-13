@@ -44,33 +44,21 @@ namespace Gym.Models.Gyms
         {
             get
             {
-                return this.equipment.Sum(x => x.Weight);
+                return equipment.Sum(x => x.Weight);
             }
         }
 
-        public ICollection<IEquipment> Equipment
-        {
-            get
-            {
-                return equipment;
-            }
-        }
+        public ICollection<IEquipment> Equipment => equipment;
 
-        public ICollection<IAthlete> Athletes
-        {
-            get
-            {
-                return athletes;
-            }
-        }
+        public ICollection<IAthlete> Athletes => athletes;
 
         public void AddAthlete(IAthlete athlete)
         {
-            if (this.athletes.Count >= this.Capacity) // ?
+            if (athletes.Count >= Capacity) // ?
             {
                 throw new InvalidOperationException("Not enough space in the gym.");
             }
-            this.athletes.Add(athlete);
+            athletes.Add(athlete);
         }
 
         public void AddEquipment(IEquipment equipment)
@@ -95,13 +83,12 @@ namespace Gym.Models.Gyms
             builder.AppendLine($"Equipment total count: { this.Equipment.Count}");
             builder.AppendLine($"Equipment total weight: {Equipment.Sum(x => x.Weight)} grams");
 
-
             return builder.ToString().TrimEnd();
         }
 
         public bool RemoveAthlete(IAthlete athlete)
         {
-            return this.athletes.Remove(athlete);
+            return athletes.Remove(athlete);
         }
     }
 }
