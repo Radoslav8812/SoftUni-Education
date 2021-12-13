@@ -45,14 +45,7 @@ namespace FoodFinder
                 vowels.Enqueue(vowels.Dequeue());
                 consonants.Pop();
             }
-            // "pear"
-            // "flour"
-            // "pork"
-            // "olive"
-
-            //eaoui
-            //prflkv
-
+ 
             List<string> words = new List<string>();
             words.Add("pear");
             words.Add("flour");
