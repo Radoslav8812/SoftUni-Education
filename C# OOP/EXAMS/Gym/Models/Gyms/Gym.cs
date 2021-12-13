@@ -18,8 +18,10 @@ namespace Gym.Models.Gyms
         {
             Name = name;
             Capacity = capacity;
-            athletes = new List<IAthlete>();
+
             equipment = new List<IEquipment>();
+            athletes = new List<IAthlete>();
+            
         }
 
         public string Name
@@ -48,9 +50,21 @@ namespace Gym.Models.Gyms
             }
         }
 
-        public ICollection<IEquipment> Equipment => equipment;
+        public ICollection<IEquipment> Equipment
+        {
+            get
+            {
+                return equipment;
+            }
+        }
 
-        public ICollection<IAthlete> Athletes => athletes;
+        public ICollection<IAthlete> Athletes
+        {
+            get
+            {
+                return athletes;
+            }
+        }
 
         public void AddAthlete(IAthlete athlete)
         {
@@ -68,9 +82,9 @@ namespace Gym.Models.Gyms
 
         public void Exercise()
         {
-            foreach (var item in athletes)
+            foreach (var athlete in athletes)
             {
-                item.Exercise();
+                athlete.Exercise();
             }
         }
 

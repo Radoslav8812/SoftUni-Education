@@ -19,7 +19,7 @@ namespace Gym.Repositories
         {
             get
             {
-                return this.models;
+                return models;
             }
         }
 

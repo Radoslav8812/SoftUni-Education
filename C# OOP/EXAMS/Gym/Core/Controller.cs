@@ -46,11 +46,11 @@ namespace Gym.Core
 
             if (gymType == "BoxingGym")
             {
-                gyms.Add((IGym)athlete);
+                currGym.AddAthlete(athlete);
             }
             else if (gymType == "WeightliftingGym")
             {
-                gyms.Add((IGym)athlete);
+                currGym.AddAthlete(athlete);
             }
             else
             {
@@ -101,7 +101,9 @@ namespace Gym.Core
 
         public string EquipmentWeight(string gymName)
         {
-            throw new NotImplementedException();
+            IGym currGym = gyms.FirstOrDefault(x => x.Name == gymName);
+
+            return $"The total weight of the equipment in the gym {gymName} is {currGym.EquipmentWeight:f2} grams.";
         }
 
         public string InsertEquipment(string gymName, string equipmentType)
@@ -116,7 +118,7 @@ namespace Gym.Core
             }
             else
             {
-                gyms.Add((IGym)currEquipment);
+                currGym.AddEquipment(currEquipment);
                 equipmentRepository.Remove(currEquipment);
                 return $"Successfully added {equipmentType} to {gymName}.";
             }
@@ -139,9 +141,7 @@ namespace Gym.Core
             IGym currGym = gyms.FirstOrDefault(x => x.Name == gymName);
             currGym.Exercise();
 
-            return $"The total weight of the equipment in the gym {gymName} is {currGym.EquipmentWeight:f2} grams."
-            + "\r\n" +
-            $"Exercise athletes: {currGym.Athletes.Count}.";
+            return $"Exercise athletes: {currGym.Athletes.Count}.";
         }
     }
 }
