@@ -1,0 +1,13 @@
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/bin/Debug/netcoreapp3.1/01_Shapes.deps.json
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/bin/Debug/netcoreapp3.1/01_Shapes.runtimeconfig.json
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/bin/Debug/netcoreapp3.1/01_Shapes.runtimeconfig.dev.json
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/bin/Debug/netcoreapp3.1/01_Shapes.dll
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/bin/Debug/netcoreapp3.1/01_Shapes.pdb
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/obj/Debug/netcoreapp3.1/01_Shapes.csproj.AssemblyReference.cache
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/obj/Debug/netcoreapp3.1/01_Shapes.GeneratedMSBuildEditorConfig.editorconfig
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/obj/Debug/netcoreapp3.1/01_Shapes.AssemblyInfoInputs.cache
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/obj/Debug/netcoreapp3.1/01_Shapes.AssemblyInfo.cs
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/obj/Debug/netcoreapp3.1/01_Shapes.csproj.CoreCompileInputs.cache
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/obj/Debug/netcoreapp3.1/01_Shapes.dll
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/obj/Debug/netcoreapp3.1/01_Shapes.pdb
+/Users/radoslavbogdanov/C# Projects/C_sharp_OOP/01_Shapes/obj/Debug/netcoreapp3.1/01_Shapes.genruntimeconfig.cache
