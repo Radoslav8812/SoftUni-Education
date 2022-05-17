@@ -26,3 +26,9 @@ INSERT INTO [Minions] VALUES
 (1, 'Kevin', 22, 1),
 (2, 'Bob', 15, 3),
 (3, 'Steward', NULL, 2)
+
+
+DELETE FROM [Minions]
+
+DROP TABLE [Minions]
+DROP TABLE [Towns]
