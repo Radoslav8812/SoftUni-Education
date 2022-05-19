@@ -1,0 +1,1 @@
+SELECT [FirstName] + ' ' + [LastName] AS [Full Name], [Title], [Notes] FROM [Employees]
