@@ -25,6 +25,11 @@ CREATE TABLE Orders
 OrderID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
 CustomerID INT REFERENCES Customers(CustomerID)
 )
+INSERT INTO Orders VALUES
+(1),
+(2),
+(3)
+
 
 CREATE TABLE ItemTypes(
     ItemTypeID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
@@ -52,6 +57,10 @@ CREATE TABLE OrderItems(
     ItemID INT REFERENCES Items(ItemID)
     CONSTRAINT PK_Orders_Items PRIMARY KEY (OrderID, ItemID)   
 )
+INSERT INTO OrderItems VALUES
+(1,1),
+(2,2),
+(3,3)
 
 SELECT * FROM Cities
 SELECT * FROM Customers
