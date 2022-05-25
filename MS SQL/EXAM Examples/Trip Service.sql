@@ -88,3 +88,29 @@ Delete all of Account ID 47’s account’s trips from the mapping table.
 --WHERE AccountId = 47
 DELETE FROM AccountsTrips
 WHERE AccountId = 47
+
+/*5. EEE-Mails
+Select accounts whose emails start with the letter “e”. 
+Select their first and last name, their birthdate in the format "MM-dd-yyyy", their city name, and their Email.
+Order them by city name (ascending)
+*/
+SELECT 
+FirstName,
+LastName,
+FORMAT(BirthDate, 'MM-dd-yyyy') AS BirthDate,
+[Name] AS HomeTown,
+Email
+FROM Accounts a
+JOIN Cities c ON a.CityId = c.Id
+WHERE [Email] LIKE 'e%'
+ORDER BY c.Name ASC
+
+
+/*6. City Statistics
+Select all cities with the count of hotels in them.
+Order them by the hotel count (descending), then by city name. Do not include cities, which have no hotels in them.
+*/
+SELECT c.Name AS City, COUNT(*) AS Hotels FROM Hotels h
+JOIN Cities c ON h.CityId = c.Id
+GROUP BY c.Name
+ORDER BY Hotels DESC, c.Name ASC
