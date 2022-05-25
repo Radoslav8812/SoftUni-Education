@@ -1,4 +1,5 @@
-/* Crеate a database called TripService. You need to create 6 tables: */
+/* Crеate a database called TripService. 
+   You need to create 6 tables: */
 
 CREATE TABLE Cities(
     Id INT IDENTITY PRIMARY KEY NOT NULL,
@@ -63,8 +64,27 @@ INSERT INTO Accounts VALUES
 ('Friedrich', 'Wilhelm', 'Nietzsche', 2, '1844-10-15', 'f_nietzsche@softuni.bg')
 
 INSERT INTO Trips VALUES
-(101, '2015-04-12',	'2015-04-14', '2015-04-20', '2015-02-02'),
-(102, '2015-07-07',	'2015-07-15', '2015-07-22',	'2015-04-29'),
-(103, '2013-07-17',	'2013-07-23', '2013-07-24',	NULL),
-(104, '2012-03-17',	'2012-03-31', '2012-04-01',	'2012-01-10'),
-(109, '2017-08-07',	'2017-08-28', '2017-08-29',	NULL)
+(101, '2015-04-12', '2015-04-14', '2015-04-20', '2015-02-02'),
+(102, '2015-07-07', '2015-07-15', '2015-07-22', '2015-04-29'),
+(103, '2013-07-17', '2013-07-23', '2013-07-24', NULL),
+(104, '2012-03-17', '2012-03-31', '2012-04-01', '2012-01-10'),
+(109, '2017-08-07', '2017-08-28', '2017-08-29', NULL)
+
+
+/* 3. Update
+Make all rooms’ prices 14% more expensive where the hotel ID is either 5, 7 or 9.
+*/
+--SELECT * FROM Rooms
+--WHERE HotelId In (5,7,9)
+UPDATE Rooms
+SET Price *= 1.14
+WHERE HotelId IN(5, 7, 9)
+
+
+/*4. Delete
+Delete all of Account ID 47’s account’s trips from the mapping table.
+*/
+--SELECT * FROM AccountsTrips
+--WHERE AccountId = 47
+DELETE FROM AccountsTrips
+WHERE AccountId = 47
