@@ -110,7 +110,19 @@ ORDER BY c.Name ASC
 Select all cities with the count of hotels in them.
 Order them by the hotel count (descending), then by city name. Do not include cities, which have no hotels in them.
 */
+-- With GROUP BY
 SELECT c.Name AS City, COUNT(*) AS Hotels FROM Hotels h
 JOIN Cities c ON h.CityId = c.Id
 GROUP BY c.Name
 ORDER BY Hotels DESC, c.Name ASC
+-- With SELECT
+SELECT [Name] AS City, (SELECT COUNT(*) FROM Hotels h WHERE h.CityId = c.Id) AS Hotels
+FROM Cities c
+WHERE (SELECT COUNT(*) FROM Hotels h WHERE h.CityId = c.Id) > 0
+ORDER BY Hotels DESC, City ASC 
+
+
+/*7. Longest and Shortest Trips
+Find the longest and shortest trip for each account, in days. Filter the results to accounts with no middle name and trips, which are not cancelled (CancelDate is null).
+Order the results by Longest Trip days (descending), then by Shortest Trip (ascending).
+*/
